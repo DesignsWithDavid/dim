@@ -1,0 +1,11 @@
+tasks:
+  - init: |
+      sudo apt-get update --fix-missing
+      sudo apt-get install -y neovim sqlite yarn npm libssl-dev libva2 libva-dev libva-drm2 ffmpeg 
+      mkdir -p utils
+      mkdir -p ./target/release/utils
+      ln -nfs $(which ffmpeg) utils/ffmpeg 
+      ln -nfs $(which ffmpeg) ./target/release/utils/ffmpeg 
+      ln -nfs $(which ffprobe) utils/ffprobe 
+      ln -nfs $(which ffprobe) ./target/release/utils/ffprobe 
+    command: cargo run --release
