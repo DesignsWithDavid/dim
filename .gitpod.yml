@@ -8,4 +8,4 @@ tasks:
       ln -nfs $(which ffmpeg) ./target/release/utils/ffmpeg 
       ln -nfs $(which ffprobe) utils/ffprobe 
       ln -nfs $(which ffprobe) ./target/release/utils/ffprobe 
-    command: cargo run --release
+    command: cargo build
