@@ -22,8 +22,15 @@ function PrivateRoute(props) {
 
   const { logged_in, error } = auth.login;
   const { token } = auth;
+  const adminExists = await fetch(`/api/v1/auth/admin_exists`);
 
   useEffect(() => {
+
+    if (!adminExists) {
+      history.push("/authenticate");
+      return;
+    }
+
     if (tokenInCookie && !token) {
       dispatch(updateAuthToken(tokenInCookie));
       return;
