@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Route, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateAuthToken } from "../actions/auth.js";
+import { updateAuthToken, checkAdminExists } from "../actions/auth.js";
 import { fetchUser } from "../actions/user.js";
 
 function PrivateRoute(props) {
@@ -22,12 +22,20 @@ function PrivateRoute(props) {
 
   const { logged_in, error } = auth.login;
   const { token } = auth;
-  const adminExists = await fetch(`/api/v1/auth/admin_exists`);
+  let adminExists = false;
+
+  console.log(auth.adminExists);
+  console.log(checkAdminExists());
+
+  useEffect(() => {
+    dispatch(checkAdminExists());
+  }, [dispatch]);
 
   useEffect(() => {
 
-    if (!adminExists) {
-      history.push("/authenticate");
+    if (adminExists) {
+      console.log("ADMIN EXISTS");
+      history.push("/register");
       return;
     }
 
